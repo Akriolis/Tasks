@@ -22,7 +22,8 @@ class TaskItemAdapter: RecyclerView.Adapter<TaskItemAdapter.TaskViewHolder>() {
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val item = data[position]
-        holder.binding.taskView.text = item.taskName
+        holder.binding.taskName.text = item.taskName
+        holder.binding.taskDone.isChecked = item.taskDone
     }
 
     override fun getItemCount(): Int = data.size

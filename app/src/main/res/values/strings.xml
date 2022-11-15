@@ -6,4 +6,5 @@
     <string name="enter_id_to_delete">Enter ID of the task to delete it!</string>
     <string name="clear_lists">Clear lists!</string>
     <string name="id_is_blank">Add an ID!</string>
+    <string name="done">Done?</string>
 </resources>
