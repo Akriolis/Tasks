@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tasks</string>
+    <string name="enter_task_name">Enter a task name!</string>
+    <string name="save_task">Save Task!</string>
+    <string name="task_name_blank">Task name is blank!</string>
+    <string name="enter_id_to_delete">Enter ID of the task to delete it!</string>
+    <string name="clear_lists">Clear lists!</string>
+    <string name="id_is_blank">Add an ID!</string>
+</resources>
