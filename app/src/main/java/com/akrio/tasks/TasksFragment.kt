@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.akrio.tasks.databinding.FragmentTasksBinding
 import models.TaskDatabase
 
@@ -33,8 +34,13 @@ class TasksFragment : Fragment() {
         viewModelFactory = TasksViewModelFactory(dao)
         viewModel = ViewModelProvider(this,viewModelFactory)[TasksViewModel::class.java]
 
-        viewModel.tasksString.observe(viewLifecycleOwner){
-            binding.tasks.text = it
+        val adapter = TaskItemAdapter()
+        binding.tasksList.adapter = adapter
+
+        viewModel.tasks.observe(viewLifecycleOwner){
+            it?.let{
+                adapter.data = it
+            }
         }
 
         binding.saveButton.setOnClickListener {
