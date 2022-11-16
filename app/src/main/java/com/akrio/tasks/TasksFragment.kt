@@ -39,13 +39,15 @@ class TasksFragment : Fragment() {
 
         viewModel.tasks.observe(viewLifecycleOwner){
             it?.let{
-                adapter.data = it
+                adapter.submitList(it)
+                binding.tasksList.smoothScrollToPosition(0)
             }
         }
 
         binding.saveButton.setOnClickListener {
             if(binding.taskName.text.trim().isEmpty()){
                 Toast.makeText(activity,getString(R.string.task_name_blank),Toast.LENGTH_LONG).show()
+
             } else {
                 viewModel.addNewTaskName(binding.taskName.text.toString())
                 viewModel.addTask()
