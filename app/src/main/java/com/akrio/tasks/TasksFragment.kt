@@ -50,7 +50,7 @@ class TasksFragment : Fragment() {
         viewModel.tasks.observe(viewLifecycleOwner){
             it?.let{
                 adapter.submitList(it)
-                binding.tasksList.smoothScrollToPosition(0)
+                binding.tasksList.smoothScrollToPosition(it.size)
             }
         }
 

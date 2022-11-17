@@ -28,7 +28,9 @@ suspend fun deleteAll()
 @Query ("SELECT * FROM task_table WHERE taskId = :key")
 fun get(key: Long): LiveData<Task>
 
-@Query("SELECT * FROM task_table ORDER BY taskId DESC") //DESC means "in descending order"
+//DESC means "in descending order"
+//@Query("SELECT * FROM task_table ORDER BY taskId DESC")
+@Query("SELECT * FROM task_table")
 fun getAll(): LiveData<List<Task>>
 
 }
