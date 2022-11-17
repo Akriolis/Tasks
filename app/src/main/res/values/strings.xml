@@ -12,5 +12,11 @@
     <string name="clicked_task">Clicked task with ID: %d</string>
     <string name="update_task">Update task!</string>
     <string name="delete_task">Delete task!</string>
+    <string name="rename_task">Here you can rename the task!</string>
+    <string name="task_done">Here you can check if task done!</string>
+    <string name="clear_all_tasks">Are you sure you want to clear all tasks?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="destroy">It will clear all the task without any backup!</string>
 
 </resources>

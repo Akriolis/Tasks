@@ -34,7 +34,6 @@ class EditTaskFragment : Fragment() {
         viewModelFactory = EditTaskViewModelFactory(taskId, dao)
         viewModel = ViewModelProvider(this, viewModelFactory)[EditTaskViewModel::class.java]
 
-
         viewModel.task.observe(viewLifecycleOwner) {
             it?.let {
                 binding.taskName.setText(it.taskName)
@@ -43,19 +42,17 @@ class EditTaskFragment : Fragment() {
         }
 
         binding.taskDone.setOnClickListener {
-            viewModel.editedTaskValue.observe(viewLifecycleOwner) {
-                viewModel.editedTaskValue.value?.let {
-                    it.taskDone = binding.taskDone.isChecked
-                }
+            if(binding.taskDone.isChecked){
+                viewModel.taskDone()
+            } else{
+                viewModel.taskNotDone()
             }
         }
 
         binding.updateButton.setOnClickListener {
-            viewModel.editedTaskValue.observe(viewLifecycleOwner) {
-                viewModel.editedTaskValue.value?.taskName = binding.taskName.text.toString()
+                viewModel.updateTaskName(binding.taskName.text.toString())
                 viewModel.updateTask()
                 navigateToTaskFragment()
-        }
     }
 
         binding.deleteButton.setOnClickListener {

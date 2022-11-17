@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.akrio.tasks.databinding.FragmentTasksBinding
-import models.Task
 import models.TaskDatabase
 
 class TasksFragment : Fragment() {
@@ -19,14 +16,14 @@ class TasksFragment : Fragment() {
     private var _binding: FragmentTasksBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel: TasksViewModel
-    lateinit var viewModelFactory: TasksViewModelFactory
+    private lateinit var viewModel: TasksViewModel
+    private lateinit var viewModelFactory: TasksViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTasksBinding.inflate(inflater,container,false)
         val view = binding.root
 
@@ -65,10 +62,6 @@ class TasksFragment : Fragment() {
                 viewModel.addTask()
                 binding.taskName.text.clear()
             }
-        }
-
-        binding.clearLists.setOnClickListener {
-                viewModel.deleteAll()
         }
 
         return view

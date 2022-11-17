@@ -22,13 +22,6 @@
         android:layout_gravity="center"
         android:text="@string/save_task"/>
 
-    <Button
-        android:id="@+id/clear_lists"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/clear_lists"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_list"
         android:layout_width="match_parent"

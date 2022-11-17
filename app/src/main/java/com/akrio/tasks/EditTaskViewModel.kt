@@ -8,20 +8,33 @@ import models.TaskDao
 
 class EditTaskViewModel (taskId: Long, val dao: TaskDao): ViewModel() {
 
-    val task = dao.get(taskId)
+    private val _task = dao.get(taskId)
+    val task get() = _task
 
-    val editedTaskValue = task
+    private val _editedTaskValue = _task
 
     fun updateTask(){
         viewModelScope.launch (Dispatchers.IO) {
-                dao.update(editedTaskValue.value!!)
+                dao.update(_editedTaskValue.value!!)
         }
     }
 
     fun deleteTask(){
         viewModelScope.launch (Dispatchers.IO) {
-                dao.delete(task.value!!)
+                dao.delete(_task.value!!)
         }
+    }
+
+    fun taskDone(){
+        _editedTaskValue.value?.taskDone = true
+    }
+
+    fun taskNotDone(){
+        _editedTaskValue.value?.taskDone = false
+    }
+
+    fun updateTaskName(taskName: String){
+        _editedTaskValue.value?.taskName = taskName
     }
 
 }
