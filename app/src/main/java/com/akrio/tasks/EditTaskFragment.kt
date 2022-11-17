@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.akrio.tasks.databinding.FragmentEditTaskBinding
-import com.akrio.tasks.databinding.FragmentTasksBinding
 import models.TaskDatabase
 
 class EditTaskFragment : Fragment() {
@@ -34,40 +31,43 @@ class EditTaskFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dao = TaskDatabase.getInstance(application).taskDao
 
-        viewModelFactory = EditTaskViewModelFactory(taskId,dao)
-        viewModel = ViewModelProvider(this,viewModelFactory)[EditTaskViewModel::class.java]
-
-        viewModel.task.value?.let {
-            binding.taskName.setText(it.taskName)
-        }
-
-        viewModel.task.value?.let {
-            binding.taskDone.isChecked = it.taskDone
-        }
+        viewModelFactory = EditTaskViewModelFactory(taskId, dao)
+        viewModel = ViewModelProvider(this, viewModelFactory)[EditTaskViewModel::class.java]
 
 
-        viewModel.navigateToList.observe(viewLifecycleOwner){
-            if(it){
-                view.findNavController().navigate(R.id.action_editTaskFragment_to_tasksFragment)
-                viewModel.onNavigatedToList()
+        viewModel.task.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.taskName.setText(it.taskName)
+                binding.taskDone.isChecked = it.taskDone
             }
         }
 
         binding.taskDone.setOnClickListener {
-            viewModel.task.value?.let {
-                it.taskDone = binding.taskDone.isChecked
+            viewModel.editedTaskValue.observe(viewLifecycleOwner) {
+                viewModel.editedTaskValue.value?.let {
+                    it.taskDone = binding.taskDone.isChecked
+                }
             }
         }
 
         binding.updateButton.setOnClickListener {
-            viewModel.updateTask()
+            viewModel.editedTaskValue.observe(viewLifecycleOwner) {
+                viewModel.editedTaskValue.value?.taskName = binding.taskName.text.toString()
+                viewModel.updateTask()
+                navigateToTaskFragment()
         }
+    }
 
-        binding.updateButton.setOnClickListener {
+        binding.deleteButton.setOnClickListener {
             viewModel.deleteTask()
+            navigateToTaskFragment()
         }
 
         return view
+    }
+
+    private fun navigateToTaskFragment(){
+        view?.findNavController()?.navigate(R.id.action_editTaskFragment_to_tasksFragment)
     }
 
 }
