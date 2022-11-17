@@ -6,5 +6,11 @@
     <string name="enter_id_to_delete">Enter ID of the task to delete it!</string>
     <string name="clear_lists">Clear lists!</string>
     <string name="id_is_blank">Add an ID!</string>
-    <string name="done">Done?</string>
+    <string name="done">It\'s done!</string>
+    <string name="not_done">Not done yet!</string>
+    <string name="done_checker">Done?</string>
+    <string name="clicked_task">Clicked task with ID: %d</string>
+    <string name="update_task">Update task!</string>
+    <string name="delete_task">Delete task!</string>
+
 </resources>

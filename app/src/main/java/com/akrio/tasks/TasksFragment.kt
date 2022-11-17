@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akrio.tasks.databinding.FragmentTasksBinding
+import models.Task
 import models.TaskDatabase
 
 class TasksFragment : Fragment() {
@@ -34,8 +36,19 @@ class TasksFragment : Fragment() {
         viewModelFactory = TasksViewModelFactory(dao)
         viewModel = ViewModelProvider(this,viewModelFactory)[TasksViewModel::class.java]
 
-        val adapter = TaskItemAdapter()
+        val adapter = TaskItemAdapter {
+            viewModel.onTaskClicked(it)
+        }
+
         binding.tasksList.adapter = adapter
+
+        viewModel.navigateToTask.observe(viewLifecycleOwner){
+            it?.let{
+                val action = TasksFragmentDirections.actionTasksFragmentToEditTaskFragment(it)
+                this.findNavController().navigate(action)
+                viewModel.onTaskNavigated()
+            }
+        }
 
         viewModel.tasks.observe(viewLifecycleOwner){
             it?.let{
@@ -47,7 +60,6 @@ class TasksFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             if(binding.taskName.text.trim().isEmpty()){
                 Toast.makeText(activity,getString(R.string.task_name_blank),Toast.LENGTH_LONG).show()
-
             } else {
                 viewModel.addNewTaskName(binding.taskName.text.toString())
                 viewModel.addTask()

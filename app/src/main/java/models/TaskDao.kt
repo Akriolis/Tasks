@@ -25,11 +25,8 @@ suspend fun delete (task: Task)
 @Query ("DELETE FROM task_table")
 suspend fun deleteAll()
 
-//@Query ("DELETE FROM task_table WHERE taskId = :taskId")
-//suspend fun deleteById(taskId: Long)
-
-@Query ("SELECT * FROM task_table WHERE taskId = :taskId")
-fun get(taskId: Long): LiveData<Task>
+@Query ("SELECT * FROM task_table WHERE taskId = :key")
+fun get(key: Long): LiveData<Task>
 
 @Query("SELECT * FROM task_table ORDER BY taskId DESC") //DESC means "in descending order"
 fun getAll(): LiveData<List<Task>>

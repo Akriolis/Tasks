@@ -1,5 +1,7 @@
 package com.akrio.tasks
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +10,11 @@ import kotlinx.coroutines.launch
 import models.*
 
 class TasksViewModel(val dao: TaskDao): ViewModel() {
+
+    private val _navigateToTask = MutableLiveData<Long?>()
+    val navigateToTask: LiveData<Long?>
+    get() = _navigateToTask
+
     private var newTaskName = ""
 
     val tasks = dao.getAll()
@@ -33,12 +40,6 @@ class TasksViewModel(val dao: TaskDao): ViewModel() {
 
     }
 
-    fun deleteById(userId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            dao.delete(Task(taskId = userId))
-        }
-    }
-
     fun deleteAll(){
         viewModelScope.launch (Dispatchers.IO) {
             dao.deleteAll()
@@ -51,6 +52,14 @@ class TasksViewModel(val dao: TaskDao): ViewModel() {
             task.taskName = newTaskName
             dao.insert(task)
         }
+    }
+
+    fun onTaskClicked(taskId: Long){
+        _navigateToTask.value = taskId
+    }
+
+    fun onTaskNavigated(){
+        _navigateToTask.value = null
     }
 
 
