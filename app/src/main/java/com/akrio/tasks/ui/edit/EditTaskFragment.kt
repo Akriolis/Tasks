@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -50,18 +51,22 @@ class EditTaskFragment : Fragment() {
             }
         }
 
+        binding.taskName.addTextChangedListener {
+            viewModel.updateTaskName(it.toString())
+        }
 
         binding.updateButton.setOnClickListener {
-            //todo add listener to textview
-            viewModel.updateTaskName(binding.taskName.text.toString())
             viewModel.updateTask()
-            //todo: consider navigating after update completed
-            navigateToTaskFragment()
         }
 
         binding.deleteButton.setOnClickListener {
             viewModel.deleteTask()
-            navigateToTaskFragment()
+        }
+
+        viewModel.readyToNavigate.observe(viewLifecycleOwner) {
+            if (it) {
+                navigateToTaskFragment()
+            }
         }
 
         return view
@@ -69,6 +74,7 @@ class EditTaskFragment : Fragment() {
 
     private fun navigateToTaskFragment() {
         view?.findNavController()?.navigate(R.id.action_editTaskFragment_to_tasksFragment)
+        viewModel.onTaskNavigated()
     }
 
 }

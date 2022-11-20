@@ -14,8 +14,8 @@ interface TaskDao {
     @Insert
     suspend fun insert(task: Task)
 
-//@Insert
-//fun insertAll(task: List<Task>)
+    //@Insert
+    //fun insertAll(task: List<Task>)
 
     @Update
     suspend fun update(task: Task)
@@ -30,7 +30,7 @@ interface TaskDao {
     fun get(key: Long): LiveData<Task>
 
     //DESC means "in descending order"
-//@Query("SELECT * FROM task_table ORDER BY taskId DESC")
+    //@Query("SELECT * FROM task_table ORDER BY taskId DESC")
     @Query("SELECT * FROM task_table")
     fun getAll(): LiveData<List<Task>>
 
