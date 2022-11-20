@@ -1,11 +1,13 @@
-package com.akrio.tasks
+package com.akrio.tasks.ui.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import models.TaskDao
+import com.akrio.tasks.data.db.TaskDao
 
-class EditTaskViewModelFactory(private val taskId: Long,
-                               private val dao: TaskDao ): ViewModelProvider.Factory {
+class EditTaskViewModelFactory(
+    private val taskId: Long,
+    private val dao: TaskDao
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EditTaskViewModel::class.java)) {

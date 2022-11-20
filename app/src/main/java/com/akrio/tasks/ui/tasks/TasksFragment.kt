@@ -1,4 +1,4 @@
-package com.akrio.tasks
+package com.akrio.tasks.ui.tasks
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.akrio.tasks.R
 import com.akrio.tasks.databinding.FragmentTasksBinding
-import models.TaskDatabase
+import com.akrio.tasks.data.db.TaskDatabase
+import com.akrio.tasks.ui.tasks.recycler.TaskItemAdapter
 
 class TasksFragment : Fragment() {
 
@@ -54,11 +57,14 @@ class TasksFragment : Fragment() {
             }
         }
 
+        binding.taskName.addTextChangedListener {
+            viewModel.addNewTaskName(it.toString())
+        }
+
         binding.saveButton.setOnClickListener {
             if(binding.taskName.text.trim().isEmpty()){
                 Toast.makeText(activity,getString(R.string.task_name_blank),Toast.LENGTH_LONG).show()
             } else {
-                viewModel.addNewTaskName(binding.taskName.text.toString())
                 viewModel.addTask()
                 binding.taskName.text.clear()
             }

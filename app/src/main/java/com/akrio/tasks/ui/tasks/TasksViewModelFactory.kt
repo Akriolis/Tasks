@@ -1,8 +1,8 @@
-package com.akrio.tasks
+package com.akrio.tasks.ui.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import models.TaskDao
+import com.akrio.tasks.data.db.TaskDao
 
 class TasksViewModelFactory(private val dao: TaskDao): ViewModelProvider.Factory {
 

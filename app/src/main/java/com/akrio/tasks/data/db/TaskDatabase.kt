@@ -1,22 +1,23 @@
-package models
+package com.akrio.tasks.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.akrio.tasks.data.db.models.Task
 
 @Database(entities = [Task::class], version = 1, exportSchema = false)
-abstract class TaskDatabase: RoomDatabase() {
+abstract class TaskDatabase : RoomDatabase() {
     abstract val taskDao: TaskDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: TaskDatabase? = null
 
         fun getInstance(context: Context): TaskDatabase {
-            synchronized(this){
+            synchronized(this) {
                 var instance = INSTANCE
-                if (instance == null){
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TaskDatabase::class.java,

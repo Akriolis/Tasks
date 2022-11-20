@@ -11,7 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.akrio.tasks.databinding.ActivityMainBinding
 import com.google.android.material.appbar.MaterialToolbar
-import models.TaskDatabase
+import com.akrio.tasks.data.db.TaskDatabase
+import com.akrio.tasks.ui.tasks.TasksViewModel
+import com.akrio.tasks.ui.tasks.TasksViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
