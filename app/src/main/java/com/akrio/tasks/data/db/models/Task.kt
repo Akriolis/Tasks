@@ -1,4 +1,4 @@
-package models
+package com.akrio.tasks.data.db.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

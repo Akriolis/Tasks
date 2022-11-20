@@ -1,14 +1,15 @@
-package com.akrio.tasks
+package com.akrio.tasks.ui.edit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.akrio.tasks.R
+import com.akrio.tasks.data.db.TaskDatabase
 import com.akrio.tasks.databinding.FragmentEditTaskBinding
-import models.TaskDatabase
 
 class EditTaskFragment : Fragment() {
 
@@ -42,18 +43,21 @@ class EditTaskFragment : Fragment() {
         }
 
         binding.taskDone.setOnClickListener {
-            if(binding.taskDone.isChecked){
+            if (binding.taskDone.isChecked) {
                 viewModel.taskDone()
-            } else{
+            } else {
                 viewModel.taskNotDone()
             }
         }
 
+
         binding.updateButton.setOnClickListener {
-                viewModel.updateTaskName(binding.taskName.text.toString())
-                viewModel.updateTask()
-                navigateToTaskFragment()
-    }
+            //todo add listener to textview
+            viewModel.updateTaskName(binding.taskName.text.toString())
+            viewModel.updateTask()
+            //todo: consider navigating after update completed
+            navigateToTaskFragment()
+        }
 
         binding.deleteButton.setOnClickListener {
             viewModel.deleteTask()
@@ -63,7 +67,7 @@ class EditTaskFragment : Fragment() {
         return view
     }
 
-    private fun navigateToTaskFragment(){
+    private fun navigateToTaskFragment() {
         view?.findNavController()?.navigate(R.id.action_editTaskFragment_to_tasksFragment)
     }
 

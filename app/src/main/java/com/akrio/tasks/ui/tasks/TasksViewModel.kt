@@ -1,13 +1,13 @@
-package com.akrio.tasks
+package com.akrio.tasks.ui.tasks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akrio.tasks.data.db.models.Task
+import com.akrio.tasks.data.db.TaskDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import models.*
 
 class TasksViewModel(val dao: TaskDao): ViewModel() {
 
@@ -15,7 +15,7 @@ class TasksViewModel(val dao: TaskDao): ViewModel() {
     val navigateToTask: LiveData<Long?>
     get() = _navigateToTask
 
-    private var newTaskName = ""
+    private val _newTaskName = MutableLiveData("")
 
     val tasks = dao.getAll()
 //    val tasksString = Transformations.map(tasks){
@@ -36,7 +36,7 @@ class TasksViewModel(val dao: TaskDao): ViewModel() {
 //    }
 
     fun addNewTaskName(taskName: String){
-        newTaskName = taskName
+        _newTaskName.postValue(taskName)
 
     }
 
@@ -49,7 +49,7 @@ class TasksViewModel(val dao: TaskDao): ViewModel() {
     fun addTask() {
         viewModelScope.launch (Dispatchers.IO){
             val task = Task()
-            task.taskName = newTaskName
+            task.taskName = _newTaskName.value ?:""
             dao.insert(task)
         }
     }
