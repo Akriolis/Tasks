@@ -18,5 +18,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="destroy">It will clear all the task without any backup!</string>
+    <string name="delete_fab">delete_FAB</string>
 
 </resources>

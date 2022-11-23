@@ -34,7 +34,7 @@ class TasksFragment : Fragment() {
         val dao = TaskDatabase.getInstance(application).taskDao
 
         viewModelFactory = TasksViewModelFactory(dao)
-        viewModel = ViewModelProvider(this,viewModelFactory)[TasksViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(),viewModelFactory)[TasksViewModel::class.java]
 
         val adapter = TaskItemAdapter {
             viewModel.onTaskClicked(it)

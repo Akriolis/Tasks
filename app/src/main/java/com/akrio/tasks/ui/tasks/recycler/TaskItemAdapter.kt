@@ -2,6 +2,7 @@ package com.akrio.tasks.ui.tasks.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.akrio.tasks.R
@@ -10,7 +11,7 @@ import com.akrio.tasks.data.db.models.Task
 
 class TaskItemAdapter(val clickListener: (taskId: Long) -> Unit) :
     ListAdapter<Task, TaskItemAdapter.TaskViewHolder>(
-        TaskDiffItemCallback()
+        AsyncDifferConfig.Builder<Task> (TaskDiffItemCallback()).build()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {

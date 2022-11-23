@@ -17,10 +17,23 @@
 <androidx.fragment.app.FragmentContainerView
     android:id="@+id/nav_host_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     android:name="androidx.navigation.fragment.NavHostFragment"
     android:padding="16dp"
+    android:layout_weight="1"
     app:navGraph="@navigation/nav_graph"
     app:defaultNavHost="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/delete_icon_new"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/delete_fab"
+        android:focusable="true" />
 
 </LinearLayout>
